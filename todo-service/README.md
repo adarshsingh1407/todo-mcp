@@ -2,6 +2,8 @@
 
 A simple RESTful todo service built with Node.js, TypeScript, Express, and PostgreSQL.
 
+**Repository**: [https://github.com/adarshsingh1407/todo-mcp](https://github.com/adarshsingh1407/todo-mcp)
+
 ## Prerequisites
 
 - **Node.js**: 22.17.0 (enforced via .nvmrc)
