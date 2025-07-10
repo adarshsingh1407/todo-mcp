@@ -457,7 +457,6 @@ This project is licensed under the MIT License.
 
 - [Todo Service](../todo-service/) - REST API for todo management
 - [Todo UI](../todo-ui/) - Web interface for todo management
-- [Todo Analyzer](../todo-analyzer/) - Analytics and insights
 
 ## 📞 Support
 

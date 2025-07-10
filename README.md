@@ -7,18 +7,16 @@ A comprehensive todo management system built with modern technologies and micros
 This project implements a complete todo management system with multiple components:
 
 - **✅ Todo Service**: RESTful API with TypeScript, Express, PostgreSQL
+- **✅ Todo MCP Service**: Model Context Protocol service with AI integration
 - **🔄 Todo UI**: Frontend application (TODO)
-- **🔄 Todo MCP Service**: Model Context Protocol service (TODO)
-- **🔄 Todo Analyzer**: AI-powered todo analysis (TODO)
 
 ## 📁 Project Structure
 
 ```
 todo-mcp/
 ├── ✅ todo-service/           # RESTful API (Complete)
+├── ✅ todo-mcp-service/      # MCP service (Complete)
 ├── 🔄 todo-ui/               # Frontend application (TODO)
-├── 🔄 todo-mcp-service/      # MCP service (TODO)
-├── 🔄 todo-analyzer/         # AI analyzer (TODO)
 ├── ✅ docker-compose.yml     # Docker orchestration
 ├── ✅ todo-service-spec.md   # API specification
 └── 📄 README.md             # This file
@@ -61,6 +59,61 @@ cp env.example .env
 pnpm dev
 ```
 
+### Todo MCP Service (`todo-mcp-service/`)
+
+A Model Context Protocol server with AI-powered todo management:
+
+- **✅ MCP Protocol**: Full Model Context Protocol implementation
+- **✅ AI Integration**: Support for Ollama (local) and Claude API
+- **✅ Todo Management**: Complete CRUD operations via MCP
+- **✅ Resources**: All todos, remaining todos, completed todos
+- **✅ Tools**: Add, mark done/todo, delete, AI summaries
+- **✅ Streamable HTTP**: Modern MCP transport
+- **✅ Docker Ready**: Containerized with docker-compose
+- **✅ Documentation**: Comprehensive README and API docs
+
+**Features**:
+
+- **Resources**: `todos://all`, `todos://remaining`, `todos://completed`
+- **Tools**: `add-todo`, `mark-done`, `mark-todo`, `delete-todo`, `summarise-remaining`, `summarise-completed`
+- **AI Integration**: Natural language summaries of todo lists
+- **Client Support**: Cursor IDE, MCP Inspector, custom clients
+
+**Quick Start**:
+
+```bash
+# Using Docker Compose (includes todo-service)
+docker-compose up
+
+# Or local development
+cd todo-mcp-service
+pnpm install
+cp .env.example .env
+pnpm dev
+```
+
+**MCP Integration**:
+
+```bash
+# Health check
+curl http://localhost:3001/health
+
+# Add todo via MCP
+curl -X POST http://localhost:3001/mcp \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/call",
+    "params": {
+      "name": "add-todo",
+      "arguments": {
+        "title": "Test todo"
+      }
+    }
+  }'
+```
+
 ## 🔄 TODO Components
 
 ### 1. Todo UI (`todo-ui/`)
@@ -84,46 +137,6 @@ pnpm dev
 - Tailwind CSS
 - React Query / SWR
 - Framer Motion
-
-### 2. Todo MCP Service (`todo-mcp-service/`)
-
-**Status**: Not Started  
-**Priority**: Medium
-
-**Planned Features**:
-
-- [ ] Model Context Protocol implementation
-- [ ] AI-powered todo suggestions
-- [ ] Natural language processing
-- [ ] Integration with todo-service API
-- [ ] Plugin architecture
-
-**Tech Stack**:
-
-- Node.js / TypeScript
-- MCP (Model Context Protocol)
-- OpenAI API integration
-- Plugin system
-
-### 3. Todo Analyzer (`todo-analyzer/`)
-
-**Status**: Not Started  
-**Priority**: Low
-
-**Planned Features**:
-
-- [ ] AI-powered todo analysis
-- [ ] Priority suggestions
-- [ ] Time estimation
-- [ ] Productivity insights
-- [ ] Smart categorization
-
-**Tech Stack**:
-
-- Python / FastAPI
-- Machine Learning models
-- Natural Language Processing
-- Data analysis tools
 
 ## 🛠️ Development Setup
 
@@ -166,9 +179,8 @@ pnpm dev
 | Component        | Status      | Progress | Priority |
 | ---------------- | ----------- | -------- | -------- |
 | todo-service     | ✅ Complete | 100%     | High     |
+| todo-mcp-service | ✅ Complete | 100%     | Medium   |
 | todo-ui          | 🔄 TODO     | 0%       | High     |
-| todo-mcp-service | 🔄 TODO     | 0%       | Medium   |
-| todo-analyzer    | 🔄 TODO     | 0%       | Low      |
 
 ## 🧪 Testing
 
@@ -229,6 +241,7 @@ docker run -p 3000:3000 -e DATABASE_URL=your_db_url todo-service
 
 - **API Specification**: [todo-service-spec.md](todo-service-spec.md)
 - **Todo Service**: [todo-service/README.md](todo-service/README.md)
+- **Todo MCP Service**: [todo-mcp-service/README.md](todo-mcp-service/README.md)
 - **Docker Setup**: [docker-compose.yml](docker-compose.yml)
 
 ## 🤝 Contributing
@@ -249,27 +262,21 @@ docker run -p 3000:3000 -e DATABASE_URL=your_db_url todo-service
 - [x] Docker configuration
 - [x] Documentation
 
-### Phase 2: Frontend Development 🔄
+### Phase 2: AI Integration ✅
+
+- [x] Todo MCP Service
+- [x] AI-powered features
+- [x] Natural language processing
+- [x] Smart suggestions
+- [x] MCP protocol implementation
+
+### Phase 3: Frontend Development 🔄
 
 - [ ] Todo UI application
 - [ ] User interface design
 - [ ] API integration
 - [ ] State management
 - [ ] Responsive design
-
-### Phase 3: AI Integration 🔄
-
-- [ ] Todo MCP Service
-- [ ] AI-powered features
-- [ ] Natural language processing
-- [ ] Smart suggestions
-
-### Phase 4: Advanced Analytics 🔄
-
-- [ ] Todo Analyzer
-- [ ] Productivity insights
-- [ ] Data visualization
-- [ ] Performance metrics
 
 ## 🐛 Issues & Support
 
