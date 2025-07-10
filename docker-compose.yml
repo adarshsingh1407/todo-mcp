@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: todo-db
+    environment:
+      POSTGRES_DB: todo_db
+      POSTGRES_USER: todo_user
+      POSTGRES_PASSWORD: todo_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./todo-service/src/database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U todo_user -d todo_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  todo-service:
+    build:
+      context: ./todo-service
+      dockerfile: Dockerfile
+    container_name: todo-service
+    environment:
+      DATABASE_URL: postgres://todo_user:todo_pass@db:5432/todo_db
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["pnpm", "start"]
+
+volumes:
+  db_data:
