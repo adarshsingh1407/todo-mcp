@@ -76,6 +76,18 @@ cd todo-mcp
 
 ### **2. Start All Services**
 
+#### **Option A: Docker Compose (Recommended)**
+
+```bash
+# Start all services with Docker Compose
+docker compose up
+
+# Or run in background
+docker compose up -d
+```
+
+#### **Option B: Individual Services**
+
 ```bash
 # Start todo-service and PostgreSQL
 cd todo-service
@@ -98,6 +110,7 @@ pnpm dev
 - **Todo UI**: http://localhost:3002
 - **Todo API**: http://localhost:3000
 - **MCP Server**: http://localhost:3001
+- **PostgreSQL**: localhost:5432 (user: todo_user, db: todo_db)
 
 ## 🏗️ Project Structure
 
@@ -128,7 +141,7 @@ todo-mcp/
 │   │   │   └── constants.ts
 │   │   └── app/           # Next.js app router
 │   └── Dockerfile         # Container configuration
-├── docker-compose.yml     # Multi-service orchestration
+├── docker-compose.yml     # Multi-service orchestration (Docker Compose v2)
 └── README.md             # This file
 ```
 
@@ -214,7 +227,7 @@ todo-mcp/
 
 ```bash
 # Start all services
-docker-compose up -d
+docker compose up -d
 
 # Or run individually
 cd todo-service && pnpm dev
@@ -226,7 +239,7 @@ cd todo-ui && pnpm dev
 
 ```bash
 # Build and run with Docker
-docker-compose -f docker-compose.yml up --build
+docker compose -f docker-compose.yml up --build
 ```
 
 ## 🧪 Testing

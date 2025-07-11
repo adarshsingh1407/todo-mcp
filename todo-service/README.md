@@ -21,7 +21,7 @@ A simple RESTful todo service built with Node.js, TypeScript, Express, and Postg
 - ✅ CORS enabled
 - ✅ Health check endpoint
 - ✅ Comprehensive testing with Jest
-- ✅ Docker support with docker-compose
+- ✅ Docker support with Docker Compose v2
 
 ## Quick Start
 
@@ -33,10 +33,11 @@ git clone <repository-url>
 cd todo-mcp
 
 # Start the entire stack (PostgreSQL + Todo Service)
-docker-compose up
+docker compose up
 
 # The service will be available at http://localhost:3000
 # PostgreSQL will be available at localhost:5432
+# Database credentials: todo_user/todo_password
 ```
 
 ### Option 2: Local Development
@@ -76,6 +77,8 @@ The service uses the following environment variables:
 | `DATABASE_URL` | PostgreSQL connection string | -             | ✅       |
 | `PORT`         | Server port                  | `3000`        | ❌       |
 | `NODE_ENV`     | Node environment             | `development` | ❌       |
+
+**Note**: When using Docker Compose, these environment variables are automatically configured.
 
 ### Environment Setup
 
@@ -268,16 +271,16 @@ The project includes a `docker-compose.yml` file that sets up both the todo serv
 
 ```bash
 # Start the entire stack
-docker-compose up
+docker compose up
 
 # Start in background
-docker-compose up -d
+docker compose up -d
 
 # Stop the stack
-docker-compose down
+docker compose down
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
 ```
 
 ## Health Check
@@ -307,7 +310,7 @@ todo-service/
 │   ├── types/           # TypeScript type definitions
 │   └── index.ts         # Application entry point
 ├── src/__tests__/       # Test files
-├── docker-compose.yml   # Docker Compose configuration
+├── docker-compose.yml   # Docker Compose v2 configuration
 ├── Dockerfile           # Docker image definition
 ├── env.example          # Environment variables template
 ├── jest.config.js       # Jest configuration

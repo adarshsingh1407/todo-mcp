@@ -12,6 +12,8 @@ A modern, modular React application for managing todos with an AI-powered chat i
 - ✅ Copy todo IDs to chat with one click
 - ✅ Delete todos directly from the table
 - ✅ Real-time updates via React Query
+- ✅ Responsive table design with glassy theme
+- ✅ Loading states and error handling
 
 ### **AI Chat Interface**
 
@@ -24,10 +26,12 @@ A modern, modular React application for managing todos with an AI-powered chat i
 ### **Modern UI/UX**
 
 - 🌙 Dark glassy theme with backdrop blur
-- 📱 Responsive design
+- 📱 Responsive design for all screen sizes
 - ⚡ Fast interactions with React Query
 - 🎨 Beautiful animations and transitions
 - 🔍 Intuitive command suggestions
+- 🎯 Smart suggestions for quick actions
+- ⌨️ Keyboard navigation support
 
 ## 🏗️ Architecture
 
@@ -78,11 +82,12 @@ src/
 
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui
+- **Styling**: Tailwind CSS v4
+- **UI Components**: shadcn/ui with Radix UI
 - **State Management**: React Query (TanStack Query)
 - **Icons**: Lucide React
 - **Package Manager**: pnpm
+- **Form Handling**: React Hook Form with Zod validation
 
 ## 🚀 Getting Started
 
@@ -141,11 +146,10 @@ Click the quick action buttons to:
 ### **Available Scripts**
 
 ```bash
-pnpm dev          # Start development server
+pnpm dev          # Start development server with Turbopack
 pnpm build        # Build for production
 pnpm start        # Start production server
 pnpm lint         # Run ESLint
-pnpm type-check   # Run TypeScript type checking
 ```
 
 ### **Project Structure**

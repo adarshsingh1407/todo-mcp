@@ -227,7 +227,7 @@ export default function ChatInput({
             className="h-[80px] w-[80px] bg-blue-600 hover:bg-blue-700 text-white"
             disabled={!input.trim()}
           >
-            <Send className="h-24 w-24" />
+            <Send className="!h-8 !w-8" />
           </Button>
         </form>
 

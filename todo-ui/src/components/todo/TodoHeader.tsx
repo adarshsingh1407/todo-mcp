@@ -16,7 +16,7 @@ export default function TodoHeader({
 }: TodoHeaderProps) {
   return (
     <div className="mb-6 flex items-center justify-between">
-      <h1 className="text-2xl font-bold text-white">ToDo MCP Anthropic PoC</h1>
+      <h1 className="text-2xl font-bold text-white">AI Todo Assistant</h1>
       <TodoFilter
         filter={filter}
         onFilterChange={onFilterChange}

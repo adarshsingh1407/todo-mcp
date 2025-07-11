@@ -46,6 +46,7 @@ A Model Context Protocol (MCP) server that provides todo management capabilities
 - **AI Integration**: Ollama (default) / Claude API
 - **Package Manager**: pnpm
 - **Containerization**: Docker
+- **Validation**: Zod schema validation
 
 ## 📋 Prerequisites
 
@@ -87,7 +88,7 @@ A Model Context Protocol (MCP) server that provides todo management capabilities
 
 1. **Build and run with Docker Compose:**
    ```bash
-   docker-compose up --build
+   docker compose up --build
    ```
 
 ## ⚙️ Configuration
@@ -103,6 +104,8 @@ A Model Context Protocol (MCP) server that provides todo management capabilities
 | `CLAUDE_API_KEY`   | -                        | Required when USE_CLAUDE_API=true        |
 | `OLLAMA_URL`       | `http://localhost:11434` | Ollama server URL                        |
 | `OLLAMA_MODEL`     | `tinyllama`              | Ollama model name                        |
+
+**Note**: When using Docker Compose, these environment variables are automatically configured.
 
 ### Example .env file
 
@@ -142,7 +145,7 @@ pnpm start
 
 ```bash
 # Start with Docker Compose
-docker-compose up
+docker compose up
 
 # Or build and run individually
 docker build -t todo-mcp-service .
@@ -389,7 +392,7 @@ todo-mcp-service/
 │   └── server.ts      # Main MCP server
 ├── tests/             # Test files
 ├── Dockerfile         # Docker configuration
-├── docker-compose.yml # Docker Compose setup
+├── docker-compose.yml # Docker Compose v2 setup
 ├── package.json       # Dependencies and scripts
 └── tsconfig.json      # TypeScript configuration
 ```
