@@ -2,6 +2,94 @@
 
 A comprehensive todo management system built with microservices architecture, featuring an AI-powered chat interface using the Model Context Protocol (MCP).
 
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" fill="#f8fafc" font-family="Arial, sans-serif" font-size="20" font-weight="bold">Todo MCP System Architecture</text>
+  
+  <!-- Todo UI Service -->
+  <rect x="50" y="80" width="150" height="80" rx="8" fill="#1e40af" stroke="#3b82f6" stroke-width="2"/>
+  <text x="125" y="105" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Todo UI</text>
+  <text x="125" y="120" text-anchor="middle" fill="#93c5fd" font-family="Arial, sans-serif" font-size="10">Next.js 15</text>
+  <text x="125" y="135" text-anchor="middle" fill="#93c5fd" font-family="Arial, sans-serif" font-size="10">React Query</text>
+  <text x="125" y="150" text-anchor="middle" fill="#93c5fd" font-family="Arial, sans-serif" font-size="10">Port: 3002</text>
+  
+  <!-- Todo MCP Service -->
+  <rect x="300" y="80" width="150" height="80" rx="8" fill="#7c3aed" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="375" y="105" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Todo MCP Server</text>
+  <text x="375" y="120" text-anchor="middle" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="10">MCP Protocol</text>
+  <text x="375" y="135" text-anchor="middle" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="10">Express.js</text>
+  <text x="375" y="150" text-anchor="middle" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="10">Port: 3001</text>
+  
+  <!-- Todo Service -->
+  <rect x="550" y="80" width="150" height="80" rx="8" fill="#059669" stroke="#10b981" stroke-width="2"/>
+  <text x="625" y="105" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Todo Service</text>
+  <text x="625" y="120" text-anchor="middle" fill="#6ee7b7" font-family="Arial, sans-serif" font-size="10">REST API</text>
+  <text x="625" y="135" text-anchor="middle" fill="#6ee7b7" font-family="Arial, sans-serif" font-size="10">Express.js</text>
+  <text x="625" y="150" text-anchor="middle" fill="#6ee7b7" font-family="Arial, sans-serif" font-size="10">Port: 3000</text>
+  
+  <!-- PostgreSQL Database -->
+  <rect x="300" y="220" width="150" height="80" rx="8" fill="#dc2626" stroke="#ef4444" stroke-width="2"/>
+  <text x="375" y="245" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">PostgreSQL</text>
+  <text x="375" y="260" text-anchor="middle" fill="#fca5a5" font-family="Arial, sans-serif" font-size="10">Database</text>
+  <text x="375" y="275" text-anchor="middle" fill="#fca5a5" font-family="Arial, sans-serif" font-size="10">Port: 5432</text>
+  <text x="375" y="290" text-anchor="middle" fill="#fca5a5" font-family="Arial, sans-serif" font-size="10">todo_db</text>
+  
+  <!-- AI Service -->
+  <rect x="550" y="220" width="150" height="80" rx="8" fill="#ea580c" stroke="#f97316" stroke-width="2"/>
+  <text x="625" y="245" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">AI Service</text>
+  <text x="625" y="260" text-anchor="middle" fill="#fed7aa" font-family="Arial, sans-serif" font-size="10">Ollama/Claude</text>
+  <text x="625" y="275" text-anchor="middle" fill="#fed7aa" font-family="Arial, sans-serif" font-size="10">Port: 11434</text>
+  <text x="625" y="290" text-anchor="middle" fill="#fed7aa" font-family="Arial, sans-serif" font-size="10">tinyllama</text>
+  
+  <!-- Connection arrows -->
+  <!-- UI to MCP -->
+  <line x1="200" y1="120" x2="300" y2="120" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="250" y="115" text-anchor="middle" fill="#93c5fd" font-family="Arial, sans-serif" font-size="10">HTTP/SSE</text>
+  
+  <!-- MCP to Todo Service -->
+  <line x1="450" y1="120" x2="550" y2="120" stroke="#8b5cf6" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="500" y="115" text-anchor="middle" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="10">REST API</text>
+  
+  <!-- Todo Service to Database -->
+  <line x1="625" y1="160" x2="375" y2="220" stroke="#10b981" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="500" y="190" text-anchor="middle" fill="#6ee7b7" font-family="Arial, sans-serif" font-size="10">SQL Queries</text>
+  
+  <!-- MCP to AI Service -->
+  <line x1="450" y1="160" x2="550" y2="260" stroke="#f97316" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="500" y="210" text-anchor="middle" fill="#fed7aa" font-family="Arial, sans-serif" font-size="10">AI API</text>
+  
+  <!-- Data flow labels -->
+  <text x="400" y="350" text-anchor="middle" fill="#f8fafc" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Data Flow</text>
+  
+  <!-- Flow examples -->
+  <rect x="50" y="370" width="700" height="120" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  
+  <text x="400" y="390" text-anchor="middle" fill="#f8fafc" font-family="Arial, sans-serif" font-size="12" font-weight="bold">User Interactions</text>
+  
+  <text x="100" y="410" text-anchor="start" fill="#93c5fd" font-family="Arial, sans-serif" font-size="10">• Create Todo: UI → MCP → Todo Service → Database</text>
+  <text x="100" y="425" text-anchor="start" fill="#93c5fd" font-family="Arial, sans-serif" font-size="10">• List Todos: UI → MCP → Todo Service → Database</text>
+  <text x="100" y="440" text-anchor="start" fill="#93c5fd" font-family="Arial, sans-serif" font-size="10">• AI Summary: UI → MCP → AI Service → MCP → Todo Service → Database</text>
+  <text x="100" y="455" text-anchor="start" fill="#93c5fd" font-family="Arial, sans-serif" font-size="10">• Chat Commands: UI → MCP → Todo Service → Database</text>
+  
+  <!-- Protocol labels -->
+  <text x="400" y="480" text-anchor="middle" fill="#f8fafc" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Protocols & Technologies</text>
+  
+  <text x="100" y="500" text-anchor="start" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="10">• MCP (Model Context Protocol): Standardized AI interaction protocol</text>
+  <text x="100" y="515" text-anchor="start" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="10">• REST API: Todo CRUD operations</text>
+  <text x="100" y="530" text-anchor="start" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="10">• PostgreSQL: Raw SQL with connection pooling</text>
+  <text x="100" y="545" text-anchor="start" fill="#c4b5fd" font-family="Arial, sans-serif" font-size="10">• Docker Compose: Multi-service orchestration</text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+    </marker>
+  </defs>
+</svg>
+
 ## 🏗️ Architecture Overview
 
 This project demonstrates a modern microservices approach with:
