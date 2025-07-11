@@ -59,10 +59,10 @@ function ChatMessage({ message }: { message: ChatMessage }) {
       } mb-4`}
     >
       <div
-        className={`max-w-[80%] rounded-lg px-4 py-2 ${
+        className={`max-w-[80%] rounded-lg px-4 py-2 backdrop-blur-sm border ${
           message.isUser
-            ? "bg-blue-600 text-white"
-            : "bg-gray-700 text-gray-100"
+            ? "bg-blue-500/20 text-blue-100 border-blue-400/30"
+            : "bg-gray-700/50 text-gray-100 border-gray-600/30"
         }`}
       >
         <p className="text-sm whitespace-pre-wrap">{message.content}</p>
@@ -99,7 +99,7 @@ function ChatInput({ onSend }: { onSend: (message: string) => void }) {
         <div className="flex space-x-2">
           <Button
             size="sm"
-            className="bg-purple-600 hover:bg-purple-700 text-white text-[10px] px-2 py-0.5 rounded-full h-6"
+            className="bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-400/30 backdrop-blur-sm text-[10px] px-2 py-0.5 rounded-full h-6"
             onClick={() => {
               // TODO: Add handler for summarize todos
               console.log("Summarize Todos clicked");
@@ -109,7 +109,7 @@ function ChatInput({ onSend }: { onSend: (message: string) => void }) {
           </Button>
           <Button
             size="sm"
-            className="bg-green-600 hover:bg-green-700 text-white text-[10px] px-2 py-0.5 rounded-full h-6"
+            className="bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-400/30 backdrop-blur-sm text-[10px] px-2 py-0.5 rounded-full h-6"
             onClick={() => {
               // TODO: Add handler for summarize done
               console.log("Summarize Done clicked");
@@ -119,7 +119,7 @@ function ChatInput({ onSend }: { onSend: (message: string) => void }) {
           </Button>
           <Button
             size="sm"
-            className="bg-orange-600 hover:bg-orange-700 text-white text-[10px] px-2 py-0.5 rounded-full h-6"
+            className="bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-400/30 backdrop-blur-sm text-[10px] px-2 py-0.5 rounded-full h-6"
             onClick={() => {
               // TODO: Add handler for summarize remaining
               console.log("Summarize Remaining clicked");

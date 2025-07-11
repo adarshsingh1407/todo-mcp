@@ -137,8 +137,10 @@ export default function TodoList() {
               </div>
               <Badge
                 variant={todo.status === "DONE" ? "default" : "secondary"}
-                className={`text-xs ${
-                  todo.status === "DONE" ? "bg-green-600" : "bg-gray-600"
+                className={`text-xs backdrop-blur-sm border ${
+                  todo.status === "DONE"
+                    ? "bg-green-500/20 text-green-300 border-green-400/30"
+                    : "bg-gray-500/20 text-gray-300 border-gray-400/30"
                 }`}
               >
                 {todo.status}
