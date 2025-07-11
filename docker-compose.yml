@@ -63,5 +63,37 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
+  todo-ui:
+    build:
+      context: ./todo-ui
+      dockerfile: Dockerfile
+    container_name: todo-ui
+    environment:
+      # Next.js Configuration
+      NODE_ENV: production
+      PORT: 3002
+
+      # MCP Server Configuration
+      NEXT_PUBLIC_MCP_SERVER_URL: http://localhost:3001
+    ports:
+      - "3002:3002"
+    depends_on:
+      todo-mcp-service:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    develop:
+      watch:
+        - action: rebuild
+          path: ./todo-ui
+          ignore:
+            - node_modules/
+            - .next/
+            - .git/
+
 volumes:
   db_data:

@@ -1,220 +1,204 @@
 # Todo UI
 
-A modern, responsive todo management interface built with Next.js, TypeScript, and Tailwind CSS. Features a split-screen layout with a todo list on the left and an AI chat interface on the right.
+A modern, modular React application for managing todos with an AI-powered chat interface. Built with Next.js, TypeScript, and the Model Context Protocol (MCP).
 
 ## 🚀 Features
 
-### **Split-Screen Layout**
-
-- **Left Panel**: Todo list with filtering capabilities
-- **Right Panel**: AI chat interface with quick actions
-- **Responsive Design**: Optimized for desktop and tablet use
-
 ### **Todo Management**
 
-- **Real-time Todo List**: Display todos from the todo-service
-- **Smart Filtering**: View All, View Done, View Remaining with dynamic counts
-- **Status Management**: Mark todos as DONE or TODO
-- **Clean Interface**: Minimalist design without card styling
+- ✅ Create, read, update, and delete todos
+- ✅ Visual status indicators (checkmarks for completed todos)
+- ✅ Filter todos by status (All, Done, Remaining)
+- ✅ Copy todo IDs to chat with one click
+- ✅ Delete todos directly from the table
+- ✅ Real-time updates via React Query
 
 ### **AI Chat Interface**
 
-- **Conversational UI**: Chat with AI assistant about todos
-- **Quick Actions**: One-click buttons for common tasks
-  - Summarize ToDos (Purple)
-  - Summarize Done (Green)
-  - Summarize Remaining (Orange)
-- **Message History**: Persistent chat with timestamps
-- **Responsive Input**: Auto-resizing textarea with keyboard shortcuts
+- 💬 Natural language todo management
+- 🤖 Slash commands for quick actions
+- 📝 Smart suggestions for common tasks
+- 🔄 Auto-complete for commands
+- 📊 AI-powered summaries of todo lists
 
 ### **Modern UI/UX**
 
-- **Dark Glassy Theme**: Backdrop blur effects and transparency
-- **Smooth Animations**: Framer Motion for fluid interactions
-- **Accessibility**: Proper ARIA labels and keyboard navigation
-- **Type Safety**: Full TypeScript support
+- 🌙 Dark glassy theme with backdrop blur
+- 📱 Responsive design
+- ⚡ Fast interactions with React Query
+- 🎨 Beautiful animations and transitions
+- 🔍 Intuitive command suggestions
+
+## 🏗️ Architecture
+
+### **Modular Component Structure**
+
+```
+src/
+├── components/
+│   ├── chat/           # Chat-related components
+│   │   ├── ChatHeader.tsx
+│   │   ├── ChatMessage.tsx
+│   │   ├── ChatMessages.tsx
+│   │   └── SmartSuggestions.tsx
+│   ├── todo/           # Todo-related components
+│   │   ├── TodoHeader.tsx
+│   │   ├── TodoFilter.tsx
+│   │   └── TodoTable.tsx
+│   ├── ui/             # shadcn/ui components
+│   ├── Chat.tsx        # Main chat container
+│   ├── ChatInput.tsx   # Chat input with commands
+│   ├── TodoList.tsx    # Main todo container
+│   └── Providers.tsx   # React Query provider
+├── lib/
+│   ├── hooks/          # Custom React hooks
+│   │   ├── useChat.ts  # Chat state management
+│   │   └── useTodos.ts # Todo data fetching
+│   ├── constants.ts    # Shared constants
+│   ├── mcpClient.ts    # MCP server communication
+│   ├── types.ts        # TypeScript types
+│   └── utils.ts        # Utility functions
+└── app/
+    └── page.tsx        # Main application page
+```
+
+### **Custom Hooks**
+
+- **`useTodos`** - Manages todo data fetching with React Query
+- **`useChat`** - Handles chat state, messages, and command processing
+
+### **Key Components**
+
+- **`TodoTable`** - Displays todos in a clean table format
+- **`ChatMessages`** - Renders chat conversation
+- **`SmartSuggestions`** - Quick action buttons
+- **`TodoFilter`** - Filter dropdown with counts
 
 ## 🛠️ Tech Stack
 
 - **Framework**: Next.js 15 with App Router
-- **Language**: TypeScript (strict mode)
-- **Styling**: Tailwind CSS with custom dark theme
-- **UI Components**: shadcn/ui with custom components
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
 - **State Management**: React Query (TanStack Query)
-- **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **Package Manager**: pnpm
 
-## 📦 Installation
+## 🚀 Getting Started
 
-### Prerequisites
+### **Prerequisites**
 
 - Node.js 18+
-- pnpm 8+
+- pnpm
 - Running todo-service and todo-mcp-service
 
-### Setup
+### **Installation**
 
 ```bash
-# Navigate to todo-ui directory
-cd todo-ui
-
 # Install dependencies
 pnpm install
 
-# Copy environment variables
-cp .env.example .env.local
-
-# Start development server
+# Start the development server
 pnpm dev
 ```
 
-### Environment Variables
+### **Environment Variables**
+
+Create a `.env.local` file:
 
 ```env
-# .env.local
-NEXT_PUBLIC_TODO_SERVICE_URL=http://localhost:3000
-NEXT_PUBLIC_MCP_SERVICE_URL=http://localhost:3001
+NEXT_PUBLIC_MCP_SERVER_URL=http://localhost:3001
 ```
 
-## 🏗️ Project Structure
+## 📖 Usage
 
-```
-todo-ui/
-├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── layout.tsx         # Root layout with providers
-│   │   ├── page.tsx           # Main page with split layout
-│   │   └── globals.css        # Global styles and theme
-│   ├── components/             # React components
-│   │   ├── ui/                # shadcn/ui components
-│   │   ├── TodoList.tsx       # Todo list with filtering
-│   │   ├── Chat.tsx           # AI chat interface
-│   │   └── Providers.tsx      # React Query provider
-│   ├── lib/                   # Utility functions
-│   │   ├── mcpClient.ts       # MCP server client
-│   │   └── types.ts           # Shared TypeScript types
-│   └── hooks/                 # Custom React hooks
-│       └── useTodos.ts        # Todo data fetching hooks
-├── public/                    # Static assets
-├── tailwind.config.js         # Tailwind configuration
-├── components.json            # shadcn/ui configuration
-└── package.json              # Dependencies and scripts
-```
+### **Todo Management**
 
-## 🎨 UI Components
+1. **View Todos**: Todos are displayed in a clean table format
+2. **Filter**: Use the dropdown to filter by status (All, Done, Remaining)
+3. **Copy ID**: Click the copy icon to copy a todo ID to the chat
+4. **Delete**: Click the trash icon to delete a todo
 
-### **TodoList Component**
+### **Chat Commands**
 
-- **Filtering**: Select dropdown for different todo views
-- **Dynamic Counts**: Real-time counts for each filter
-- **Clean Layout**: Simple list without card styling
-- **Status Indicators**: Visual distinction between TODO and DONE
+- `/add-todo <title>` - Create a new todo
+- `/mark-done <id>` - Mark a todo as completed
+- `/mark-todo <id>` - Mark a todo as pending
+- `/delete-todo <id>` - Delete a todo
+- `/summarise-remaining` - Get AI summary of pending todos
+- `/summarise-completed` - Get AI summary of completed todos
 
-### **Chat Component**
+### **Smart Suggestions**
 
-- **Modular Design**: Separate components for messages and input
-- **Quick Actions**: Compact pill-style buttons with different colors
-- **Message Bubbles**: User vs AI message styling
-- **Responsive Input**: Auto-resizing textarea with send button
+Click the quick action buttons to:
 
-### **Layout**
-
-- **Split Screen**: 50/50 division between todo list and chat
-- **Glass Effect**: Backdrop blur and transparency
-- **Subtle Border**: Short vertical separator between panels
-- **Overflow Handling**: Proper scrolling and containment
+- Add a new todo
+- Summarize remaining todos
+- Summarize completed todos
 
 ## 🔧 Development
 
-### Available Scripts
+### **Available Scripts**
 
 ```bash
-# Development
 pnpm dev          # Start development server
 pnpm build        # Build for production
 pnpm start        # Start production server
-
-# Code Quality
 pnpm lint         # Run ESLint
-pnpm type-check   # Run TypeScript checks
+pnpm type-check   # Run TypeScript type checking
 ```
 
-### Key Dependencies
+### **Project Structure**
 
-- **@tanstack/react-query**: Data fetching and caching
-- **framer-motion**: Smooth animations
-- **lucide-react**: Icon library
-- **@radix-ui/react-select**: Accessible select component
-- **@radix-ui/react-textarea**: Accessible textarea component
+- **Components**: Modular, reusable UI components
+- **Hooks**: Custom React hooks for business logic
+- **Types**: TypeScript type definitions
+- **Constants**: Shared constants and configurations
 
-## 🔌 Integration
+### **Adding New Features**
 
-### **Todo Service Integration**
+1. Create new components in appropriate directories
+2. Add custom hooks for business logic
+3. Update types as needed
+4. Follow the existing patterns for consistency
 
-- **REST API**: Fetches todos from todo-service
-- **Real-time Updates**: React Query for automatic refetching
-- **Error Handling**: Graceful error states and loading indicators
+## 🎨 Design System
 
-### **MCP Service Integration** (Planned)
+### **Theme**
 
-- **Chat Interface**: Connect to todo-mcp-service for AI interactions
-- **Quick Actions**: Direct API calls for summarization features
-- **Streaming**: Real-time chat responses
+- **Dark glassy theme** with backdrop blur effects
+- **Consistent color palette** with blue, purple, and indigo accents
+- **Smooth transitions** and hover effects
+- **Responsive design** for all screen sizes
 
-## 🎯 Roadmap
+### **Components**
 
-### **Phase 1: Core UI** ✅
+- **shadcn/ui** for consistent, accessible components
+- **Custom styling** with Tailwind CSS
+- **Icon integration** with Lucide React
 
-- [x] Split-screen layout
-- [x] Todo list with filtering
-- [x] Chat interface with dummy data
-- [x] Quick action buttons
-- [x] Dark glassy theme
+## 🔗 Integration
 
-### **Phase 2: API Integration** 🚧
+### **MCP Server**
 
-- [ ] Connect to todo-service for real data
-- [ ] Integrate with todo-mcp-service for chat
-- [ ] Implement quick action handlers
-- [ ] Add real-time updates
+- Communicates with todo-mcp-service via HTTP
+- Supports all MCP tools and resources
+- Real-time todo updates
 
-### **Phase 3: Enhanced Features**
+### **Todo Service**
 
-- [ ] Drag and drop todo reordering
-- [ ] Keyboard shortcuts
-- [ ] Todo search functionality
-- [ ] Export/import capabilities
-- [ ] Mobile responsive design
+- RESTful API for todo CRUD operations
+- PostgreSQL database backend
+- Docker containerization
 
-## 🐛 Troubleshooting
+## 📝 Contributing
 
-### Common Issues
-
-1. **Build Errors**: Ensure Node.js version matches `.nvmrc`
-2. **Styling Issues**: Check Tailwind CSS configuration
-3. **API Connection**: Verify todo-service and todo-mcp-service are running
-4. **Type Errors**: Run `pnpm type-check` for detailed TypeScript errors
-
-### Development Tips
-
-- Use `pnpm dev` for hot reloading during development
-- Check browser console for API connection issues
-- Use React Query DevTools for debugging data fetching
-- Monitor network tab for API call failures
+1. Follow the existing code structure and patterns
+2. Use TypeScript for type safety
+3. Write modular, reusable components
+4. Update documentation as needed
+5. Test your changes thoroughly
 
 ## 📄 License
 
-This project is part of the todo-mcp ecosystem and follows the same license as the parent project.
-
-## 🤝 Contributing
-
-1. Follow the existing code style and TypeScript conventions
-2. Add proper TypeScript types for new components
-3. Test UI changes across different screen sizes
-4. Ensure accessibility standards are met
-5. Update documentation for new features
-
----
-
-**Built with ❤️ using Next.js, TypeScript, and Tailwind CSS**
+This project is part of the todo-mcp project and follows the same license terms.

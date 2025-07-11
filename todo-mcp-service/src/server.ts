@@ -378,6 +378,60 @@ app.post("/mcp", async (req, res) => {
       }
     );
 
+    // Register prompts
+    server.registerPrompt(
+      "add-todo",
+      {
+        title: "Add Todo Prompt",
+        description: "A prompt template for adding a new todo to the list",
+        argsSchema: { title: z.string() },
+      },
+      ({ title }) => ({
+        messages: [
+          {
+            role: "user",
+            content: {
+              type: "text",
+              text: `Please add a new todo with the title: "${title}"`,
+            },
+          },
+        ],
+      })
+    );
+
+    // Register a combined prompt-and-execute tool
+    server.registerTool(
+      "add-todo-with-prompt",
+      {
+        title: "Add Todo with Prompt",
+        description: "Add a new todo and show the prompt message",
+        inputSchema: { title: z.string() },
+      },
+      async (args: any) => {
+        try {
+          const todo = await todoClient.createTodo({ title: args.title });
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text: `📝 Prompt: "Please add a new todo with the title: '${args.title}'"\n✅ Successfully added todo: "${todo.title}"`,
+              },
+            ],
+          };
+        } catch (error) {
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text: `📝 Prompt: "Please add a new todo with the title: '${args.title}'"\n❌ Error adding todo: ${error}`,
+              },
+            ],
+            isError: true,
+          };
+        }
+      }
+    );
+
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: undefined,
     });
@@ -453,4 +507,5 @@ app.listen(PORT, () => {
   console.log(
     `🔧 Tools: add-todo, mark-done, mark-todo, delete-todo, summarise-remaining, summarise-completed`
   );
+  console.log(`📝 Prompts: add-todo`);
 });

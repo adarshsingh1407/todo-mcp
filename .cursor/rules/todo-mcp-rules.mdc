@@ -1,0 +1,446 @@
+---
+alwaysApply: true
+---
+
+## 🏗️ Architecture Rules
+
+### **Microservices Boundaries**
+
+- **todo-service**: RESTful API only, no UI logic
+- **todo-mcp-service**: MCP protocol only, no direct UI
+- **todo-ui**: Frontend only, no business logic
+
+### **Database Rules**
+
+- **Raw SQL**: Use `pg` library, no ORMs
+- **Parameterized Queries**: Always use parameterized queries
+- **Connection Pooling**: Use connection pools for efficiency
+- **Migrations**: Document schema changes
+
+```sql
+-- ✅ Good
+const result = await pool.query(
+  'SELECT * FROM todo WHERE status = $1',
+  [status]
+);
+
+-- ❌ Bad
+const result = await pool.query(
+  `SELECT * FROM todo WHERE status = '${status}'`
+);
+```
+
+### **API Design Rules**
+
+- **RESTful**: Follow REST principles strictly
+- **Status Codes**: Use proper HTTP status codes
+- **Error Responses**: Consistent error format
+- **Validation**: Validate all inputs
+
+```typescript
+// ✅ Good API Response
+{
+  "id": "uuid",
+  "title": "Todo title",
+  "status": "TODO"
+}
+
+// ✅ Good Error Response
+{
+  "error": "Validation failed",
+  "details": ["Title is required"]
+}
+```
+
+### **MCP Server Rules**
+
+- **Resource URIs**: Use consistent URI patterns (`todos://`)
+- **Tool Names**: Use kebab-case for tool names
+- **Input Validation**: Validate all tool inputs with Zod
+- **Error Handling**: Graceful error responses
+
+```typescript
+// ✅ Good MCP Tool
+server.registerTool(
+  "add-todo",
+  {
+    title: "Add Todo",
+    description: "Add a new todo",
+    inputSchema: { title: z.string() },
+  },
+  async ({ title }) => {
+    // Implementation
+  }
+);
+```
+
+---
+
+## 🎨 UI/UX Rules
+
+### **Component Structure**
+
+- **Functional Components**: Use function components with hooks
+- **Props Interface**: Define props interface for each component
+- **Default Props**: Use default parameters instead of defaultProps
+- **Children Props**: Use React.ReactNode for children
+
+```typescript
+// ✅ Good Component
+interface TodoListProps {
+  todos: TodoItem[];
+  onTodoClick?: (todo: TodoItem) => void;
+}
+
+export default function TodoList({ todos, onTodoClick }: TodoListProps) {
+  // Component logic
+}
+```
+
+### **Styling Rules**
+
+- **Tailwind CSS**: Use Tailwind classes, avoid custom CSS
+- **Glass Effect**: Use `backdrop-blur-sm` and transparency
+- **Dark Theme**: Consistent dark theme throughout
+- **Responsive**: Mobile-first responsive design
+
+```typescript
+// ✅ Good Glassy Styling
+className =
+  "bg-blue-500/20 text-blue-300 border border-blue-400/30 backdrop-blur-sm";
+```
+
+### **State Management**
+
+- **React Query**: Use for server state
+- **useState**: Use for local UI state
+- **Custom Hooks**: Extract reusable logic
+- **Context**: Avoid unless necessary
+
+```typescript
+// ✅ Good Custom Hook
+export function useTodos() {
+  return useQuery({
+    queryKey: ["todos"],
+    queryFn: fetchTodos,
+  });
+}
+```
+
+---
+
+## 🧪 Testing Rules
+
+### **Test Coverage Requirements**
+
+- **Minimum Coverage**: 70% for all services
+- **Unit Tests**: Test individual functions
+- **Integration Tests**: Test API endpoints
+- **Component Tests**: Test React components
+
+### **Test Naming**
+
+```typescript
+// ✅ Good Test Names
+describe("TodoService", () => {
+  it("should create a new todo", () => {
+    // Test implementation
+  });
+
+  it("should return error for invalid input", () => {
+    // Test implementation
+  });
+});
+```
+
+### **Test Structure**
+
+```typescript
+// ✅ Good Test Structure
+describe("Todo API", () => {
+  beforeEach(() => {
+    // Setup
+  });
+
+  afterEach(() => {
+    // Cleanup
+  });
+
+  it("should handle valid requests", () => {
+    // Arrange
+    const todo = { title: "Test todo" };
+
+    // Act
+    const result = createTodo(todo);
+
+    // Assert
+    expect(result).toBeDefined();
+  });
+});
+```
+
+---
+
+## 🔒 Security Rules
+
+### **Input Validation**
+
+- **All Inputs**: Validate all user inputs
+- **SQL Injection**: Use parameterized queries only
+- **XSS Prevention**: Sanitize user content
+- **Error Messages**: Don't expose sensitive information
+
+### **Environment Variables**
+
+- **Sensitive Data**: Never commit secrets to git
+- **Environment Files**: Use `.env.example` for templates
+- **Validation**: Validate required environment variables
+
+```typescript
+// ✅ Good Environment Handling
+const apiKey = process.env["API_KEY"];
+if (!apiKey) {
+  throw new Error("API_KEY is required");
+}
+```
+
+---
+
+## 📦 Package Management Rules
+
+### **pnpm Usage**
+
+- **Lock File**: Always commit `pnpm-lock.yaml`
+- **Workspace**: Use pnpm workspaces for monorepo
+- **Scripts**: Use pnpm scripts in package.json
+
+### **Dependency Management**
+
+- **Latest Versions**: Use latest stable versions
+- **Security**: Regular `pnpm audit` checks
+- **Updates**: Regular dependency updates
+
+```json
+// ✅ Good package.json
+{
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts"
+  }
+}
+```
+
+---
+
+## 🐳 Docker Rules
+
+### **Container Structure**
+
+- **Multi-stage**: Use multi-stage builds
+- **Security**: Run as non-root user
+- **Size**: Optimize image size
+- **Health Checks**: Include health check endpoints
+
+```dockerfile
+# ✅ Good Dockerfile
+FROM node:22-alpine AS builder
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+FROM node:22-alpine AS runtime
+USER node
+COPY --from=builder /app/dist ./dist
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost:3000/health
+```
+
+### **Docker Compose**
+
+- **Service Dependencies**: Use `depends_on`
+- **Networks**: Use custom networks
+- **Volumes**: Use named volumes for persistence
+- **Environment**: Use `.env` files
+
+---
+
+## 📚 Documentation Rules
+
+### **README Files**
+
+- **Project Overview**: Clear project description
+- **Setup Instructions**: Step-by-step setup
+- **API Documentation**: Complete API reference
+- **Examples**: Code examples for common use cases
+
+### **Code Comments**
+
+- **Complex Logic**: Comment complex business logic
+- **API Endpoints**: Document parameters and responses
+- **Configuration**: Document configuration options
+- **TODO Comments**: Use TODO for future improvements
+
+```typescript
+// ✅ Good Comments
+/**
+ * Creates a new todo item
+ * @param title - The todo title (required)
+ * @param status - The todo status (optional, defaults to 'TODO')
+ * @returns Promise<TodoItem>
+ */
+async function createTodo(
+  title: string,
+  status: TodoStatus = "TODO"
+): Promise<TodoItem> {
+  // Implementation
+}
+```
+
+---
+
+## 🚀 Deployment Rules
+
+### **Environment Configuration**
+
+- **Development**: Use `.env.local` for local development
+- **Production**: Use environment variables
+- **Staging**: Use staging-specific configurations
+
+### **Build Process**
+
+- **Type Checking**: Run `tsc --noEmit` before build
+- **Linting**: Run ESLint before build
+- **Testing**: Run tests before deployment
+- **Coverage**: Ensure coverage requirements are met
+
+### **CI/CD Pipeline**
+
+```yaml
+# ✅ Good CI/CD Structure
+- name: Install dependencies
+  run: pnpm install --frozen-lockfile
+
+- name: Type check
+  run: pnpm type-check
+
+- name: Lint
+  run: pnpm lint
+
+- name: Test
+  run: pnpm test
+
+- name: Build
+  run: pnpm build
+```
+
+---
+
+## 🤝 Team Collaboration Rules
+
+### **Git Workflow**
+
+- **Branch Naming**: `feature/description` or `fix/description`
+- **Commit Messages**: Use conventional commits
+- **Pull Requests**: Require reviews for main branch
+- **Merge Strategy**: Use squash and merge
+
+```bash
+# ✅ Good Commit Messages
+feat: add todo creation endpoint
+fix: resolve database connection issue
+docs: update API documentation
+```
+
+### **Code Review Checklist**
+
+- [ ] **TypeScript**: No type errors
+- [ ] **Tests**: Adequate test coverage
+- [ ] **Documentation**: Updated documentation
+- [ ] **Performance**: No performance regressions
+- [ ] **Security**: No security vulnerabilities
+
+### **Communication**
+
+- **Issues**: Use GitHub issues for bugs and features
+- **Discussions**: Use GitHub discussions for questions
+- **Documentation**: Keep documentation up to date
+- **Architecture**: Document architectural decisions
+
+---
+
+## 📊 Quality Gates
+
+### **Pre-commit Checks**
+
+- **TypeScript**: No type errors
+- **Linting**: No linting errors
+- **Formatting**: Consistent code formatting
+- **Tests**: All tests passing
+
+### **Pre-deployment Checks**
+
+- **Coverage**: Minimum 70% test coverage
+- **Security**: No known vulnerabilities
+- **Performance**: Acceptable performance metrics
+- **Accessibility**: Screen reader compatibility
+
+### **Monitoring**
+
+- **Error Tracking**: Monitor application errors
+- **Performance**: Monitor response times
+- **Uptime**: Monitor service availability
+- **Usage**: Monitor feature usage
+
+---
+
+## 🔄 Maintenance Rules
+
+### **Regular Tasks**
+
+- **Dependency Updates**: Monthly dependency updates
+- **Security Audits**: Weekly security scans
+- **Performance Reviews**: Monthly performance reviews
+- **Documentation Updates**: Keep docs current
+
+### **Version Management**
+
+- **Semantic Versioning**: Follow semver for releases
+- **Changelog**: Maintain CHANGELOG.md
+- **Breaking Changes**: Document breaking changes
+- **Migration Guides**: Provide migration guides
+
+---
+
+## 🎯 Success Metrics
+
+### **Code Quality**
+
+- **TypeScript Coverage**: 100% TypeScript usage
+- **Test Coverage**: 70%+ test coverage
+- **Lint Score**: 0 linting errors
+- **Security Score**: 0 known vulnerabilities
+
+### **Performance**
+
+- **Response Time**: < 200ms for API endpoints
+- **Bundle Size**: < 500KB for frontend
+- **Load Time**: < 3s for initial page load
+- **Uptime**: 99.9% availability
+
+### **User Experience**
+
+- **Accessibility**: WCAG 2.1 AA compliance
+- **Responsive**: Works on all screen sizes
+- **Intuitive**: Clear user interface
+- **Fast**: Smooth interactions
+
+---
+
+**These rules ensure consistent development practices, maintainable code, and high-quality deliverables across the todo-mcp project.**
+description:
+globs:
+alwaysApply: false
+
+---
