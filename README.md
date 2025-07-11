@@ -28,6 +28,14 @@ This project demonstrates a modern microservices approach with:
                        └─────────────────┘    └─────────────────┘
 ```
 
+## Screen Recordings
+
+
+
+https://github.com/user-attachments/assets/24892508-99f7-4173-b05a-85835de2b7ce
+
+
+
 ## 📦 Components
 
 ### ✅ **Completed Components**
