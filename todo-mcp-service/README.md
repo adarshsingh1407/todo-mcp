@@ -16,8 +16,8 @@ A Model Context Protocol (MCP) server that provides todo management capabilities
 - **Mark as DONE** (`mark-done`) - Mark a todo as completed
 - **Mark as TODO** (`mark-todo`) - Mark a todo as pending
 - **Delete Todo** (`delete-todo`) - Remove a todo item
-- **Summarise Remaining** (`summarise-remaining`) - AI-powered summary of pending todos
-- **Summarise Completed** (`summarise-completed`) - AI-powered summary of completed todos
+- **Summarise Remaining** (`summarise-remaining`) - AI-powered summary of pending todos with human-like responses
+- **Summarise Completed** (`summarise-completed`) - AI-powered summary of completed todos with human-like responses
 
 ## 🏗️ Architecture
 
@@ -388,8 +388,15 @@ todo-mcp-service/
 ├── src/
 │   ├── api/           # API clients (todo, AI)
 │   ├── config/        # Configuration management
+│   ├── server/        # Modular server components
+│   │   ├── middleware.ts
+│   │   ├── routes.ts
+│   │   ├── resources.ts
+│   │   ├── tools.ts
+│   │   ├── prompts.ts
+│   │   └── mcpHandler.ts
 │   ├── types/         # TypeScript type definitions
-│   └── server.ts      # Main MCP server
+│   └── server.ts      # Main server entry point
 ├── tests/             # Test files
 ├── Dockerfile         # Docker configuration
 ├── docker-compose.yml # Docker Compose v2 setup

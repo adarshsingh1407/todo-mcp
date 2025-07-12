@@ -11,7 +11,8 @@ interface ChatProps {
 }
 
 export default function Chat({ selectedTodoId, onTodoIdUsed }: ChatProps) {
-  const { messages, handleSendMessage, handleSlashCommand } = useChat();
+  const { messages, isProcessing, handleSendMessage, handleSlashCommand } =
+    useChat();
 
   return (
     <div className="flex flex-col h-full">
@@ -19,7 +20,7 @@ export default function Chat({ selectedTodoId, onTodoIdUsed }: ChatProps) {
 
       {/* Chat messages area */}
       <div className="flex-1 bg-gray-900/50 backdrop-blur-sm p-6 rounded-lg border border-gray-600 flex flex-col min-h-0">
-        <ChatMessages messages={messages} />
+        <ChatMessages messages={messages} isProcessing={isProcessing} />
 
         {/* Chat input */}
         <div className="flex-shrink-0">
@@ -28,6 +29,7 @@ export default function Chat({ selectedTodoId, onTodoIdUsed }: ChatProps) {
             onSlashCommand={handleSlashCommand}
             selectedTodoId={selectedTodoId}
             onTodoIdUsed={onTodoIdUsed}
+            isProcessing={isProcessing}
           />
         </div>
       </div>

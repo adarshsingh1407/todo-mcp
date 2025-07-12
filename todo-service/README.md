@@ -1,6 +1,6 @@
 # Todo Service
 
-A simple RESTful todo service built with Node.js, TypeScript, Express, and PostgreSQL.
+A simple RESTful todo service built with Node.js, TypeScript, Express, and PostgreSQL. This service provides the core database operations and is the only component that directly connects to the PostgreSQL database.
 
 **Repository**: [https://github.com/adarshsingh1407/todo-mcp](https://github.com/adarshsingh1407/todo-mcp)
 

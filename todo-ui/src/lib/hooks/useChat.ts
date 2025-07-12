@@ -25,6 +25,7 @@ I can help you manage your todos. Here's how:
 
 export function useChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([welcomeMessage]);
+  const [isProcessing, setIsProcessing] = useState(false);
   const queryClient = useQueryClient();
 
   const handlePromptMessages = (promptMessages: any[]) => {
@@ -37,7 +38,7 @@ export function useChat() {
     setMessages((prev) => [...prev, ...convertedMessages]);
   };
 
-  const handleSendMessage = (content: string) => {
+  const handleSendMessage = async (content: string) => {
     const newMessage: ChatMessage = {
       id: Date.now().toString(),
       content,
@@ -45,9 +46,9 @@ export function useChat() {
       createdAt: new Date().toISOString(),
     };
     setMessages((prev) => [...prev, newMessage]);
+    setIsProcessing(true);
 
-    // Simulate AI response (you'll replace this with actual API call)
-    setTimeout(() => {
+    try {
       const aiResponse: ChatMessage = {
         id: (Date.now() + 1).toString(),
         content:
@@ -56,10 +57,21 @@ export function useChat() {
         createdAt: new Date().toISOString(),
       };
       setMessages((prev) => [...prev, aiResponse]);
-    }, 1000);
+    } catch (error) {
+      const errorMessage: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        content: "❌ Error processing your message. Please try again.",
+        role: "assistant",
+        createdAt: new Date().toISOString(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const handleSlashCommand = async (command: string, args: string) => {
+    setIsProcessing(true);
     try {
       let result;
       let shouldRefreshTodos = false;
@@ -165,11 +177,14 @@ export function useChat() {
         createdAt: new Date().toISOString(),
       };
       setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   return {
     messages,
+    isProcessing,
     handleSendMessage,
     handleSlashCommand,
     handlePromptMessages,

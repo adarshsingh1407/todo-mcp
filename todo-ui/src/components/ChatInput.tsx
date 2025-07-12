@@ -51,6 +51,7 @@ interface ChatInputProps {
   onSlashCommand: (command: string, args: string) => void;
   selectedTodoId?: string;
   onTodoIdUsed?: () => void;
+  isProcessing?: boolean;
 }
 
 export default function ChatInput({
@@ -58,6 +59,7 @@ export default function ChatInput({
   onSlashCommand,
   selectedTodoId,
   onTodoIdUsed,
+  isProcessing = false,
 }: ChatInputProps) {
   const [input, setInput] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -189,13 +191,15 @@ export default function ChatInput({
   return (
     <div className="space-y-3">
       {/* Smart Suggestions */}
-      <SmartSuggestions
-        onSuggestionClick={(command) => {
-          const newInput = input + command;
-          setInput(newInput);
-          textareaRef.current?.focus();
-        }}
-      />
+      {!isProcessing && (
+        <SmartSuggestions
+          onSuggestionClick={(command) => {
+            const newInput = input + command;
+            setInput(newInput);
+            textareaRef.current?.focus();
+          }}
+        />
+      )}
 
       {/* Textarea and Send Button */}
       <div className="relative">
@@ -212,8 +216,13 @@ export default function ChatInput({
               value={input}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              placeholder="Type your message or press / for commands..."
+              placeholder={
+                isProcessing
+                  ? "Processing..."
+                  : "Type your message or press / for commands..."
+              }
               className="min-h-[80px] max-h-[150px] resize-none bg-gray-800/50 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 pr-10"
+              disabled={isProcessing}
             />
             {input.startsWith("/") && (
               <div className="absolute top-2 right-2">
@@ -225,9 +234,13 @@ export default function ChatInput({
             type="submit"
             size="icon"
             className="h-[80px] w-[80px] bg-blue-600 hover:bg-blue-700 text-white"
-            disabled={!input.trim()}
+            disabled={!input.trim() || isProcessing}
           >
-            <Send className="!h-8 !w-8" />
+            {isProcessing ? (
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+            ) : (
+              <Send className="!h-8 !w-8" />
+            )}
           </Button>
         </form>
 

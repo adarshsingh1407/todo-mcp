@@ -21,7 +21,8 @@ A modern, modular React application for managing todos with an AI-powered chat i
 - 🤖 Slash commands for quick actions
 - 📝 Smart suggestions for common tasks
 - 🔄 Auto-complete for commands
-- 📊 AI-powered summaries of todo lists
+- 📊 AI-powered summaries with human-like responses
+- ⏳ Processing indicators during AI calls
 
 ### **Modern UI/UX**
 
@@ -130,8 +131,8 @@ NEXT_PUBLIC_MCP_SERVER_URL=http://localhost:3001
 - `/mark-done <id>` - Mark a todo as completed
 - `/mark-todo <id>` - Mark a todo as pending
 - `/delete-todo <id>` - Delete a todo
-- `/summarise-remaining` - Get AI summary of pending todos
-- `/summarise-completed` - Get AI summary of completed todos
+- `/summarise-remaining` - Get AI summary of pending todos with human-like responses
+- `/summarise-completed` - Get AI summary of completed todos with human-like responses
 
 ### **Smart Suggestions**
 

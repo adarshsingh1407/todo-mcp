@@ -28,6 +28,13 @@ This project demonstrates a modern microservices approach with:
                        └─────────────────┘    └─────────────────┘
 ```
 
+**Data Flow:**
+
+- Todo UI communicates with MCP Server via HTTP
+- MCP Server acts as proxy/middleware to Todo Service
+- Only Todo Service connects directly to PostgreSQL database
+- AI Service provides natural language processing capabilities
+
 ## 📦 Components
 
 ### ✅ **Completed Components**
@@ -145,7 +152,14 @@ todo-mcp/
 │   ├── src/
 │   │   ├── api/           # API clients
 │   │   ├── config/        # Configuration management
-│   │   └── server.ts      # MCP server implementation
+│   │   ├── server/        # Modular server components
+│   │   │   ├── middleware.ts
+│   │   │   ├── routes.ts
+│   │   │   ├── resources.ts
+│   │   │   ├── tools.ts
+│   │   │   ├── prompts.ts
+│   │   │   └── mcpHandler.ts
+│   │   └── server.ts      # Main server entry point
 │   └── Dockerfile         # Container configuration
 ├── todo-ui/               # React application
 │   ├── src/
@@ -203,9 +217,10 @@ todo-mcp/
 
 - 🤖 Natural language todo management
 - 📝 Slash commands for quick actions
-- 📊 AI-powered summaries
+- 📊 AI-powered summaries with human-like responses
 - 💬 Conversational interface
 - 🔄 Auto-complete suggestions
+- ⏳ Processing indicators during AI calls
 
 #### **Modern UI/UX**
 
